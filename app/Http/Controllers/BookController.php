@@ -16,7 +16,6 @@ class BookController extends Controller
     public function index(Request $request){
         
         // $book = DB::insert ('insert into books (id) values (:id)', ['id'=>10]);
-        // dd($book);
 
         // 1. Ambil input dari user (jika ada)
             $search = $request->input('search');
@@ -84,6 +83,13 @@ class BookController extends Controller
 
     //papar form kemaskini
     public function edit($id){
+        
+        //jika data tiada, akan return null dan bukan error404
+        // ...Boleh guna firstOrfail() dengan where supaya dapat return 404 
+        // $try=Book::where('id', $id)->first();
+        // dd($try);
+
+        // findorfail return pada error404
         $book = Book::findOrFail($id);
         $author = Author::all();
         return view('books.editBuku', ['buku'=>$book, 'author'=>$author]);
